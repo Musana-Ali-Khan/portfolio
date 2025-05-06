@@ -1,18 +1,4 @@
-<!-- 
-  Hello 😊.
 
-  This template is designed and developed by Nisar Hassan Naqvi
-  for anyone to use for free or customize the way they like.
-
-  Github Repo: https://github.com/nisarhassan12/portfolio-template/
-  My Website: https://nisar.dev
-
-  For business & inquires, contact me => syednisarhassan12@gmail.com
--->
-
-<!--
-  Follow the instructions written in comments to create your stunning portfolio
--->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -24,12 +10,12 @@
 
   <!-- Put your site title here -->
   <title>
-    Shelley Benhoff | Sitecore MVP & Docker Community Leader based in Orlando, Florida.
+    Musana Ali Khan | Flutter Developer and aspiring AI and Machine Learning Student
   </title>
 
-  <meta name="description" content="I have over 20 years of experience as a developer and leader in the tech industry.">
+  <meta name="description" content="I have over 5 years of experience as a Flutter Developer and leader in the tech industry.">
   <!-- Add some coding keywords below, Ex: (React, CSS etc) -->
-  <meta name="keywords" content="Shelley Benhoff, Docker, Sitecore, Web Development, .NET, C#" />
+  <meta name="keywords" content="Musana Ali Khan, Flutter, Machine Learning, Flutter Developer" />
   <link rel="stylesheet" href="index.css" />
 </head>
 
@@ -41,25 +27,29 @@
     <div class="row">
       <nav class="nav" role="navigation">
         <ul class="nav__items">
-          <li class="nav__item"><a href="#work" class="nav__link">Work</a></li>
+          <li class="nav__item nav__dropdown">
+            <a href="#work" class="nav__link">Work</a>
+            <ul class="dropdown">
+              <li><a href="#flutter" class="nav__link">Flutter Projects</a></li>
+              <li><a href="#python" class="nav__link">Python Projects</a></li>
+            </ul>
+          </li>
           <li class="nav__item"><a href="#clients" class="nav__link">Clients</a></li>
-          <li class="nav__item">
-            <a href="#about" class="nav__link">About</a>
-          </li>
-          <li class="nav__item">
-            <a href="#contact" class="nav__link">Contact</a>
-          </li>
+          <li class="nav__item"><a href="#about" class="nav__link">About</a></li>
+          <li class="nav__item"><a href="#contact" class="nav__link">Contact</a></li>
         </ul>
       </nav>
+      
+      
     </div>
     <div class="header__text-box row">
       <div class="header__text">
         <h1 class="heading-primary">
           <!-- Replace the following name with your name -->
-          <span>Shelley Benhoff</span>
+          <span>Musana Ali Khan</span>
         </h1>
         <!-- Put a small paragraph about yourself -->
-        <p>Sitecore MVP & Docker Community Leader based in Orlando, Florida.</p>
+        <p>Flutter Developer and aspiring AI and Machine Learning Student.</p>
         <a href="#contact" class="btn btn--pink">Get in touch</a>
       </div>
     </div>
@@ -72,96 +62,390 @@
     <section class="work" id="work">
       <div class="row">
         <h2>My Work</h2>
-        <div class="work__boxes">
 
-          <!-- Each div with the work__box class is a project. -->
-
-          <div class="work__box">
-            <div class="work__text">
-              <h3>Portfolio Template</h3>
-              <p>
-                A free Open Source Portfolio for anyone to use for free.
-              </p>
-              <ul class="work__list">
-                <li>HTML</li>
-                <li>SCSS</li>
-                <li>JavaScript</li>
-                <li>Parcel</li>
-              </ul>
-
-              <div class="work__links">
-                <a href="https://hoffstech.com" target="_blank" class="link__text">
-                  Visit Site <span>&rarr;</span>
-                </a>
-                <a href="https://github.com/sbenhoff/portfolio" title="View Source Code" target="_blank">
-                  <img src="./images/github.svg" class="work__code" alt="GitHub">
-                </a>
-              </div>
-            </div>
-            <div class="work__image-box">
-              <img src="./images/project-1.png" class="work__image" alt="Project 1" />
-            </div>
-          </div>
+        <h4>Flutter Projects</h4>
+        <div class="work__boxes" id="flutter">
 
           <div class="work__box">
             <div class="work__text">
-              <h3>Calculator</h3>
+              <h3>Car Connect</h3>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod,
-                eius.
+                While working at Quzafic Innovations, I developed CarConnect, a mobile application that enables car owners to rent out their vehicles and allows users to search for and rent cars seamlessly.
               </p>
               <ul class="work__list">
-                <li>React</li>
-                <li>Next.js</li>
-                <li>Node</li>
-                <li>MongoDB</li>
+                <li>Flutter</li>
+                <li>Figma</li>
+                <li>Firebase</li>
+                <li>RevenueCat</li>
               </ul>
 
-              <div class="work__links">
+              <!-- <div class="work__links">
                 <a href="#" class="link__text">
                   Visit Site <span>&rarr;</span>
                 </a>
                 <a href="#">
                   <img src="./images/github.svg" class="work__code" title="View Source Code" alt="GitHub">
                 </a>
-              </div>
+              </div> -->
             </div>
             <div class="work__image-box">
-              <img src="./images/project-2.png" class="work__image" alt="Project 1" />
+              <img src="./images/car-connect.jpg" class="work__image" alt="Project 1" />
             </div>
           </div>
 
           <div class="work__box">
             <div class="work__text">
-              <h3>Notificator</h3>
+              <h3>Burim Hazrolli</h3>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod,
-                eius.
+                While working at Quzafic Innovations, I developed Burim Hazrolli, a presentation app developed based on our client request to showcase their services.
               </p>
               <ul class="work__list">
-                <li>React</li>
-                <li>Next.js</li>
-                <li>Node</li>
-                <li>MongoDB</li>
+                <li>Flutter</li>
+                <li>Figma</li>
+                <li>Firebase</li>
               </ul>
 
               <div class="work__links">
+                <a href="https://play.google.com/store/apps/details?id=com.burim.hazrolli" class="link__text">
+                  Play Store<span>&rarr;&ensp;&ensp;</span>
+                </a>
+                <a href="https://apps.apple.com/us/app/burim-hazrolli/id6590630658" class="link__text">
+                  App Store <span>&rarr;</span>
+                </a>
+                <!-- <a href="#">
+                  <img src="./images/github.svg" class="work__code" title="View Source Code" alt="GitHub">
+                </a> -->
+              </div>
+            </div>
+            <div class="work__image-box">
+              <img src="./images/burim-hazrolli.jpg" class="work__image" alt="Project 3" />
+            </div>
+          </div>
+
+          <div class="work__box">
+            <div class="work__text">
+              <h3>Speci Market</h3>
+              <p>
+                While working at Quzafic Innovations, I developed Speci Market, a presentation app developed based on our client request to showcase their services.
+              </p>
+              <ul class="work__list">
+                <li>Flutter</li>
+                <li>Figma</li>
+                <li>Firebase</li>
+              </ul>
+
+              <div class="work__links">
+                <a href="https://apps.apple.com/us/app/speci-market/id6677062904" class="link__text">
+                  App Store <span>&rarr;</span>
+                </a>
+                <!-- <a href="#">
+                  <img src="./images/github.svg" class="work__code" title="View Source Code" alt="GitHub">
+                </a> -->
+              </div>
+            </div>
+            <div class="work__image-box">
+              <img src="./images/speci-market.jpg" class="work__image" alt="Project 4" />
+            </div>
+          </div>
+
+          <div class="work__box">
+            <div class="work__text">
+              <h3>Get Me In</h3>
+              <p>
+                While working at Quzafic Innovations, I developed Get Me In, an ultimate app for those traveling alone to events and seeking a companion. Whether it's a concert, sports event, or festival, this app ensures you never feel alone.
+              </p>
+              <ul class="work__list">
+                <li>Flutter</li>
+                <li>Figma</li>
+                <li>Firebase</li>
+                <li>Firestore (Real-time Chat)</li>
+              </ul>
+
+              <div class="work__links">
+                <!-- <a href="https://apps.apple.com/us/app/speci-market/id6677062904" class="link__text">
+                  App Store <span>&rarr;</span>
+                </a> -->
+                <!-- <a href="#">
+                  <img src="./images/github.svg" class="work__code" title="View Source Code" alt="GitHub">
+                </a> -->
+              </div>
+            </div>
+            <div class="work__image-box">
+              <img src="./images/get-me-in.jpg" class="work__image" alt="Project 4" />
+            </div>
+          </div>
+
+          <div class="work__box">
+            <div class="work__text">
+              <h3>Card Quest: Memory Challenge</h3>
+              <p>
+                While working at Quzafic Innovations, I developed Card Quest, a thrilling memory game that keeps you hooked! Perfect for both single-player and multiplayer modes, this game challenges your memory and speed in an engaging and competitive way.
+              </p>
+              <ul class="work__list">
+                <li>Flutter</li>
+                <li>Figma</li>
+                <li>Firebase</li>
+                <li>Admob</li>
+                <li>RevenueCat (In-app Subscription)</li>
+              </ul>
+
+              <div class="work__links">
+                <a href="https://play.google.com/store/apps/details?id=com.qz.card.quest.cardquest" class="link__text">
+                  Play Store <span>&rarr;</span>
+                </a>
+                <!-- <a href="#">
+                  <img src="./images/github.svg" class="work__code" title="View Source Code" alt="GitHub">
+                </a> -->
+              </div>
+            </div>
+            <div class="work__image-box">
+              <img src="./images/card-quest.jpg" class="work__image" alt="Project 4" />
+            </div>
+          </div>
+
+          <div class="work__box">
+            <div class="work__text">
+              <h3>MultiQR Scan & Code Generator</h3>
+              <p>
+                While working at Quzafic Innovations, I developed MultiQR Scan & Code Generator, a go-to app for all QR code tasks, offering both efficiency and versatility.
+              </p>
+              <ul class="work__list">
+                <li>Flutter</li>
+                <li>Figma</li>
+                <li>Firebase</li>
+                <li>Admob</li>
+              </ul>
+
+              <div class="work__links">
+                <a href="https://play.google.com/store/apps/details?id=com.qz.qrcode.scanner.qrcodeqz" class="link__text">
+                  Play Store <span>&rarr;</span>
+                </a>
+                <!-- <a href="#">
+                  <img src="./images/github.svg" class="work__code" title="View Source Code" alt="GitHub">
+                </a> -->
+              </div>
+            </div>
+            <div class="work__image-box">
+              <img src="./images/qr-code-scanner.jpg" class="work__image" alt="Project 4" />
+            </div>
+          </div>
+          
+          <div class="work__box">
+            <div class="work__text">
+              <h3>EyeQ</h3>
+              <p>
+                While working at Quzafic Innovations, I developed EyeQ, a comprehensive app designed to help you monitor and maintain your eye health. Developed as a Final Year Project (FYP) by students passionate about improving healthcare accessibility, this app is your personal guide to better vision
+              </p>
+              <ul class="work__list">
+                <li>Flutter</li>
+                <li>Firebase</li>
+              </ul>
+
+              <div class="work__links">
+                <!-- <a href="https://play.google.com/store/apps/details?id=com.qz.qrcode.scanner.qrcodeqz" class="link__text">
+                  Play Store <span>&rarr;</span>
+                </a> -->
+                <!-- <a href="#">
+                  <img src="./images/github.svg" class="work__code" title="View Source Code" alt="GitHub">
+                </a> -->
+              </div>
+            </div>
+            <div class="work__image-box">
+              <img src="./images/eye-Q.jpg" class="work__image" alt="Project 4" />
+            </div>
+          </div>
+          
+          <div class="work__box">
+            <div class="work__text">
+              <h3>EncryptChat</h3>
+              <p>
+                While working at Quzafic Innovations, I developed EncryptChat, a revolutionizing secure communication with its anonymous messaging platform, where privacy and safety are top priorities. Connect effortlessly without revealing personal details, all while enjoying innovative features designed for ultimate security.
+              </p>
+              <ul class="work__list">
+                <li>Flutter</li>
+                <li>Firebase</li>
+                <li>Firestore (Real-time Chat)</li>
+                <li>Agora (Audio Call)</li>
+              </ul>
+
+              <div class="work__links">
+                <!-- <a href="https://play.google.com/store/apps/details?id=com.qz.qrcode.scanner.qrcodeqz" class="link__text">
+                  Play Store <span>&rarr;</span>
+                </a> -->
+                <!-- <a href="#">
+                  <img src="./images/github.svg" class="work__code" title="View Source Code" alt="GitHub">
+                </a> -->
+              </div>
+            </div>
+            <div class="work__image-box">
+              <img src="./images/encrypt-chat.jpg" class="work__image" alt="Project 4" />
+            </div>
+          </div>
+          
+          <div class="work__box">
+            <div class="work__text">
+              <h3>Women Empowerment</h3>
+              <p>
+                While working at Quzafic Innovations, I developed Women Empowerment, it is more than just an app—it's a platform dedicated to inspiring growth and building confidence among women.
+              </p>
+              <ul class="work__list">
+                <li>Flutter</li>
+                <li>Firebase</li>
+              </ul>
+
+              <div class="work__links">
+                <!-- <a href="https://play.google.com/store/apps/details?id=com.qz.qrcode.scanner.qrcodeqz" class="link__text">
+                  Play Store <span>&rarr;</span>
+                </a> -->
+                <!-- <a href="#">
+                  <img src="./images/github.svg" class="work__code" title="View Source Code" alt="GitHub">
+                </a> -->
+              </div>
+            </div>
+            <div class="work__image-box">
+              <img src="./images/women-empowerment.jpg" class="work__image" alt="Project 4" />
+            </div>
+          </div>
+          
+          <div class="work__box">
+            <div class="work__text">
+              <h3>Khan Photostudio</h3>
+              <p>
+                While working at Quzafic Innovations, I developed Khan Photostudio, a  perfect app for turning your photos into personalized products. Whether it's a mug, t-shirt, phone case, or poster, you can easily upload your image and create a design that's truly yours.
+              </p>
+              <ul class="work__list">
+                <li>Flutter</li>
+                <li>Firebase</li>
+              </ul>
+
+              <div class="work__links">
+                <!-- <a href="https://play.google.com/store/apps/details?id=com.qz.qrcode.scanner.qrcodeqz" class="link__text">
+                  Play Store <span>&rarr;</span>
+                </a> -->
+                <!-- <a href="#">
+                  <img src="./images/github.svg" class="work__code" title="View Source Code" alt="GitHub">
+                </a> -->
+              </div>
+            </div>
+            <div class="work__image-box">
+              <img src="./images/khan-photo-studio.jpg" class="work__image" alt="Project 4" />
+            </div>
+          </div>
+
+
+
+
+        </div>
+        <br>
+        <br>
+        <br>
+        <h4>Python Projects</h4>
+        <div class="work__boxes" id="python">
+
+          <div class="work__box">
+            <div class="work__text">
+              <h3>Lip Reading System using Deep Learning (FYP)</h3>
+              <p>
+                Our project aims to develop a lip-reading system that captures and analyzes lip motion patterns to predict spoken words, enhancing communication for mute and deaf individuals.
+              </p>
+              <li>𝗢𝗯𝗷𝗲𝗰𝘁𝗶𝘃𝗲𝘀:</li>
+              <p>
+                Our main goal was to create a reliable and accurate lip reading model that interprets lip movements to predict words, bridging the communication gap for those with speech and hearing impairments.
+              </p>
+              <li>𝗠𝗲𝘁𝗵𝗼𝗱𝗼𝗹𝗼𝗴𝘆:</li>
+              
+              <li>𝗔𝗽𝗽𝗿𝗼𝗮𝗰𝗵 𝟭:</li>
+              <p>
+                We used the Inception V3 model with a dataset of videos from 3 males and 3 females. Initially, we struggled due to processing limitations. By applying data augmentation and expanding our dataset to 15,000 videos, we improved our validation accuracy to over 85%.
+              </p>
+              
+              <li>𝗔𝗽𝗽𝗿𝗼𝗮𝗰𝗵 𝟮:</li>
+              <p>
+                We designed a mask with SONAR sensors to capture lip motion patterns. The mask, using Arduino UNO, created a dataset for 10 words, which trained a Random Forest model. This approach showed promising results in accurately predicting words and we improved our validation accuracy to over 80%.
+              </p>
+
+              <li>𝗥𝗲𝘀𝘂𝗹𝘁𝘀:</li>
+              <p>
+                Our project achieved significant improvements in prediction accuracy and system reliability, demonstrating the feasibility of using machine learning and sensor technologies to enhance communication for mute and deaf individuals.
+              </p>
+
+              <li>𝗖𝗼𝗻𝗰𝗹𝘂𝘀𝗶𝗼𝗻:</li>
+              <p>
+                The "Robust Lip Reading System" highlights the potential of advanced technologies to develop effective communication aids. This project lays a strong foundation for future advancements, promising greater vocabulary expansion and improved accuracy, contributing to better communication and quality of life for individuals with speech impairments.
+              </p>
+
+
+              <ul class="work__list">
+                <li>Python</li>
+                <li>Deep Learning</li>
+                <li>Convolutional Neural Network</li>
+                <li>Inception V3</li>
+                <li>Max Pooling</li>
+                <li>Neural Network</li>
+                <li>Jupyter Lab</li>
+                <li>SONAR Sensor</li>
+                <li>Arduino UNO</li>
+              </ul>
+
+              <!-- <div class="work__links">
                 <a href="#" class="link__text">
                   Visit Site <span>&rarr;</span>
                 </a>
                 <a href="#">
                   <img src="./images/github.svg" class="work__code" title="View Source Code" alt="GitHub">
                 </a>
-              </div>
+              </div> -->
             </div>
             <div class="work__image-box">
-              <img src="./images/project-3.png" class="work__image" alt="Project 3" />
+              <img src="./images/Lip Reading System.png" class="work__image" alt="Project 1" />
             </div>
           </div>
+
+
+          
+          <div class="work__box">
+            <div class="work__text">
+              <h3>A Comparative Study of Four Classifiers for Vehicle Detection and Classification from Images</h3>
+              
+              <p>
+                In this project, we used 4 different classifiers to train our model
+                to detect and classify vehicle images. (Naïve Bayes, Logistic Regression, SVM,
+                Multi-Layer Perceptron )                
+              </p>
+              
+
+
+              <ul class="work__list">
+                <li>Python</li>
+                <li>Support Vector Machines (SVM)</li>
+                <li>Naive Bayes</li>
+                <li>Logistic Regression</li>
+                <li>Neural Network (MLPClassifier)</li>
+                <li>Google Colab</li>
+              </ul>
+
+              <!-- <div class="work__links">
+                <a href="#" class="link__text">
+                  Visit Site <span>&rarr;</span>
+                </a>
+                <a href="#">
+                  <img src="./images/github.svg" class="work__code" title="View Source Code" alt="GitHub">
+                </a>
+              </div> -->
+            </div>
+            <!-- <div class="work__image-box">
+              <img src="./images/Lip Reading System.png" class="work__image" alt="Project 1" />
+            </div> -->
+          </div>
+
+
         </div>
       </div>
     </section>
 
+
+
+    
     <!-- ***** Clients ***** -->
 
     <section class="client" id="clients">
@@ -169,12 +453,12 @@
         <h2>Clients</h2>
         <div class="client__logos">
           <!-- Add logos of the clients or companies you'have worked with. -->
-          <img src="./images/ronjones.png" class="client__logo" alt="Company 2" />
-          <img src="./images/goldengrid.png" class="client__logo" alt="Company 3" />
-          <img src="./images/bullseye.png" class="client__logo" alt="Company 1" />
-          <img src="./images/mighty-furnitures.png" class="client__logo" alt="Company 1" />
-          <img src="./images/fastlane.png" class="client__logo" alt="Company 3" />
-          <img src="./images/chippy.png" class="client__logo" alt="Company 1" />
+          <img src="./images/flunari-marketing.jpg" class="client__logo" alt="Company 2" />
+          <img src="./images/quzafic-innovations.png" class="client__logo" alt="Company 3" />
+          <img src="./images/card-quest-logo.png" class="client__logo" alt="Company 1" />
+          <img src="./images/speci-market-logo.png" class="client__logo" alt="Company 1" />
+          <!-- <img src="./images/fastlane.png" class="client__logo" alt="Company 3" />
+          <img src="./images/chippy.png" class="client__logo" alt="Company 1" /> -->
         </div>
       </div>
     </section>
@@ -188,18 +472,15 @@
           <div class="about__text">
             <!-- Replace the below paragraph with info about yourself -->
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos id
-              nostrum illo harum blanditiis, tenetur eum suscipit cupiditate
-              in vel, ex quam quidem quos mollitia labore aut sunt eius
-              ratione molestiae fuga veniam facere similique voluptate.
+              I'm a dedicated Flutter Developer with a passion for AI and Machine Learning, inspired early on by my elder brother. From creating my first game in Python to building cross-platform mobile apps, I’ve continuously grown my skills across Flutter, AI, ML, and project management. A fast learner with a strong work ethic, I thrive on innovation, research, and turning ideas into impactful digital solutions.
             </p>
             <!-- Provide a link to your resume -->
-            <a href="#" class="btn">My Resume</a>
+            <!-- <a href="#" class="btn">My Resume</a> -->
           </div>
 
           <div class="about__photo-container">
             <!-- Add a nice photo of yourself -->
-            <img class="about__photo" src="./images/shelley.png" alt="" />
+            <img class="about__photo" src="./images/Professional Image-gradient.png" alt="" />
           </div>
         </div>
       </div>
@@ -213,15 +494,10 @@
       <h2>Get in Touch</h2>
       <div class="contact__info">
         <p>
-          Are you looking for a fast-performing and user-friendly website to
-          represent your product or business? or looking for any kind of
-          consultation? or want to ask questions? or have some advice for me
-          or just want to say "Hi 👋" in any case feel free to Let me know. I
-          will do my best to respond back. 😊 The quickest way to reach out to
-          me is via an email.
+          Looking for a high-performance, user-friendly mobile app to bring your idea to life? Need consultation, have questions, feedback, or just want to say "Hi 👋"? Feel free to reach out — I'm always happy to connect and will do my best to respond promptly. The fastest way to contact me is via email. 😊
         </p>
         <!-- Replace the email with yours -->
-        <a href="mailto:you@example.com" class="btn">you@example.com</a>
+        <a href="mailto:musanaali02@gmail.com" class="btn">musanaali02@gmail.com</a>
       </div>
     </div>
   </section>
@@ -233,28 +509,33 @@
       <!-- Update the links to point to your accounts -->
       <ul class="footer__social-links">
         <li class="footer__social-link-item">
-          <a href="https://twitter.com/nisarhassan12/" title="Link to Twitter Profile">
-            <img src="./images/twitter.svg" class="footer__social-image" alt="Twitter">
+          <a href="https://www.youtube.com/@MusanaCodingJourney" title="Link to Youtube Profile">
+            <img src="./images/icons8-youtube.svg" class="footer__social-image" alt="Twitter">
           </a>
         </li>
         <li class="footer__social-link-item">
+          <a href="https://musanacodingjourney.blogspot.com/" title="Link to Blogger Profile">
+            <img src="./images/icons8-blogger.svg" class="footer__social-image" alt="Twitter">
+          </a>
+        </li>
+        <!-- <li class="footer__social-link-item">
           <a href="https://github.com/nisarhassan12/" title="Link to Github Profile">
             <img src="./images/github.svg" class="footer__social-image" alt="Github">
           </a>
-        </li>
-        <li class="footer__social-link-item">
+        </li> -->
+        <!-- <li class="footer__social-link-item">
           <a href="https://codepen.io/nisar_hassan" title="Link to Codepen Profile">
             <img src="./images/codepen.svg" class="footer__social-image" alt="Codepen">
           </a>
-        </li>
+        </li> -->
         <li class="footer__social-link-item">
-          <a href=https://www.linkedin.com/in/nisar-hassan-naqvi-413466199/">
+          <a href=https://www.linkedin.com/in/musana-ali-khan-505916227/">
             <img src="./images/linkedin.svg" title="Link to Linkedin Profile" class="footer__social-image" alt="Linkedin">
           </a>
         </li>
       </ul>
 
-      <!-- If you give me some credit by keeping the below paragraph, will be huge for me 😊 Thanks. -->
+      <!-- If you give me some credit by keeping the below paragraph, will be huge for me 😊 Thanks.
       <p>
         &copy; 2020 - Template designed & developed by <a href="https://nisar.dev" class="link">Nisar</a>.
       </p>
@@ -263,7 +544,7 @@
           src="https://ghbtns.com/github-btn.html?user=nisarhassan12&repo=portfolio-template&type=watch&count=true"
           frameborder="0" scrolling="0" width="170" height="20" title="Watch Portfolio Template on GitHub">
         </iframe>
-      </div>
+      </div> -->
     </div>
   </footer>
 
