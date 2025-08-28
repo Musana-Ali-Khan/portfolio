@@ -175,7 +175,7 @@
   </div>
   <div>
           <div>Musana Ali Khan</div>
-          <small class="chip">Gamified Portfolio</small>
+          <small class="chip">Portfolio</small>
         </div>
       </div>
       <div class="links">
@@ -194,7 +194,7 @@
           <div>
             <h1 class="title">Musana Ali Khan<span class="tip" data-tip="Let's have some fun!">📝</span></h1>
             <div class="subtitle">Flutter Developer</div>
-            <div class="subtitle">Guild: <strong>None</strong> · Region: <strong>Remote • UAE</strong></div>
+            <div class="subtitle">Guild: <strong>None</strong> · Region: <strong>Remote \ UAE</strong></div>
           </div>
         </div>
 
@@ -208,7 +208,7 @@
 
         <div class="stats">
           <div class="stat"><div class="h" id="questsDone">4</div><div class="t">Clients</div></div>
-          <div class="stat"><div class="h" id="projectsCount">14</div><div class="t">Projects</div></div>
+          <div class="stat"><div class="h" id="projectsCount">10</div><div class="t">Projects</div></div>
           <div class="stat"><div class="h" id="skillsCount">5</div><div class="t">Core Skills</div></div>
           <div class="stat"><div class="h" id="streak">0🔥</div><div class="t">Day Streak</div></div>
         </div>
@@ -236,42 +236,89 @@
 
     <!-- Skills -->
     <section>
-      <h3 class="section-title">Skills · Loadout</h3>
-      <div class="grid">
-        <div class="col-6 card">
-          <h4>Frontend (Mobile)</h4>
+        <h3 class="section-title">Skills · Loadout</h3>
+        <div class="grid">
+          <div class="col-6 card">
+            <h4>Frontend (Mobile)</h4>
             <ul>
               <li>Flutter, Dart</li>
               <li>State Management (BLoC, GetX)</li>
               <li>UI/UX (Figma, Material, Custom Widgets)</li>
               <li>Animations (Lottie, Hero, AnimatedControllers)</li>
             </ul>
-
-        </div>
-        <div class="col-6 card">
-          <h4>Backend</h4>
-          <ul>
-  <li>Firebase Console</li>
-  <li>REST API Integration</li>
-  <li>Cloud Functions & Serverless</li>
-  <li>Payments Integration</li>
-  <li>Google Map</li>
-</ul>
-        </div>
-        <div class="col-12 card">
-          <h4>Perks & Utilities</h4>
-          <div class="badges">
-            <div class="badge"><small>Tool</small> Git & CI/CD</div>
-            <div class="badge"><small>Cloud</small> Firebase • MongoDB</div>
-            <div class="badge"><small>Design</small>Figma • Adobe XD</div>
-            <div class="badge"><small>IDE</small> Android Studio • VS Code</div>
-            <div class="badge"><small>Lang</small>Dart • Python • C++</div>
-            <div class="badge"><small>State Management</small> BLoC • GetX</div>
-            <div class="badge"><small>Machine Learning</small> Scikit-learn • Pandas • NumPy • Matplotlib • Data Preprocessing • Model Training & Evaluation</div>
+          </div>
+      
+          <div class="col-6 card">
+            <h4>Backend</h4>
+            <ul>
+              <li>Firebase Console</li>
+              <li>REST API Integration</li>
+              <li>Cloud Functions & Serverless</li>
+              <li>Payments Integration</li>
+              <li>Google Map</li>
+            </ul>
+          </div>
+      
+          <div class="col-12 card">
+            <h4>Perks & Utilities</h4>
+            <div class="badges">
+              <div class="badge"><small>Tool</small> Git & CI/CD</div>
+              <div class="badge"><small>Cloud</small> Firebase • MongoDB</div>
+              <div class="badge"><small>Design</small> Figma • Adobe XD</div>
+              <div class="badge"><small>IDE</small> Android Studio • VS Code</div>
+              <div class="badge"><small>Lang</small> Dart • Python • C++</div>
+              <div class="badge"><small>State Management</small> BLoC • GetX</div>
+              <div class="badge"><small>Machine Learning</small> Scikit-learn • Pandas • NumPy • Matplotlib • Data Preprocessing • Model Training & Evaluation</div>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+      
+      <style>
+        
+      
+        .col-6 {
+          grid-column: span 6;
+        }
+      
+        .col-12 {
+          grid-column: span 12;
+        }
+      
+        .badges {
+          display: flex;
+          flex-wrap: wrap;
+          gap: .5rem;
+        }
+      
+        .badge {
+          padding: .5rem .8rem;
+          border-radius: 8px;
+          font-size: 0.85rem;
+          line-height: 1.2;
+        }
+      
+        .badge small {
+          display: block;
+          font-size: 0.7rem;
+          opacity: 0.7;
+        }
+      
+        /* 📱 Mobile responsiveness */
+        @media (max-width: 768px) {
+          .col-6 {
+            grid-column: span 12;
+          }
+          .card {
+            padding: .8rem;
+          }
+          .badge {
+            font-size: 0.8rem;
+            padding: .4rem .6rem;
+          }
+        }
+      </style>
+      
 
     <!-- Projects -->
     <section>
