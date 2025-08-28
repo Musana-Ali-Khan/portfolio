@@ -1,567 +1,928 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="shortcut icon" type="image/png" href="./images/favicon.png" />
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZRL885627W"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <title>Gamified Portfolio · Musana Ali Khan</title>
+  <meta name="description" content="A gamified personal portfolio with levels, XP, quests, badges, and achievements — all in a single HTML file." />
+  <style>
+    :root {
+      --bg: #0b1020;
+      --bg-soft: #121935;
+      --card: #0f1630;
+      --card-2: #101b3d;
+      --text: #e8ecfb;
+      --muted: #a6b0d6;
+      --accent: #7c5cff;
+      --accent-2: #00d4ff;
+      --good: #3cd683;
+      --warn: #ffce4a;
+      --danger: #ff6b6b;
+      --shadow: 0 8px 30px rgba(0,0,0,0.4), 0 0 0 1px rgba(124,92,255,0.06);
+    }
 
-  gtag('config', 'G-ZRL885627W');
-</script>
+    [data-theme="light"] {
+      --bg: #f6f7fb;
+      --bg-soft: #eef1fb;
+      --card: #ffffff;
+      --card-2: #ffffff;
+      --text: #1a2240;
+      --muted: #576083;
+      --accent: #6a5cff;
+      --accent-2: #007bff;
+      --good: #1fad6f;
+      --warn: #b88900;
+      --danger: #d64545;
+      --shadow: 0 6px 24px rgba(16,24,40,0.08), 0 0 0 1px rgba(16,24,40,0.06);
+    }
 
-  <!-- Put your site title here -->
-  <title>
-    Musana Ali Khan | Flutter Developer and aspiring AI and Machine Learning Student
-  </title>
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      background: radial-gradient(1200px 800px at 80% -10%, rgba(124,92,255,.25), transparent),
+                  radial-gradient(900px 600px at -20% 10%, rgba(0,212,255,.15), transparent), var(--bg);
+      color: var(--text);
+      letter-spacing: .2px;
+    }
 
-  <meta name="description" content="I have over 5 years of experience as a Flutter Developer and leader in the tech industry.">
-  <!-- Add some coding keywords below, Ex: (React, CSS etc) -->
-  <meta name="keywords" content="Musana Ali Khan, Flutter, Machine Learning, Flutter Developer" />
-  <link rel="stylesheet" href="index.css" />
+    a { color: var(--accent-2); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .max {
+      max-width: 1100px; margin: 0 auto; padding: 24px;
+    }
+
+    /* Top Nav */
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: blur(8px);
+      background: linear-gradient(to bottom, rgba(10,12,24,.9), rgba(10,12,24,.6));
+      border-bottom: 1px solid rgba(124,92,255,.15);
+    }
+    [data-theme="light"] .nav {
+      background: rgba(255,255,255,.7);
+      border-bottom: 1px solid rgba(16,24,40,.08);
+    }
+
+    .nav .inner { display: flex; align-items: center; justify-content: space-between; }
+    .brand { display:flex; align-items:center; gap:12px; font-weight: 800; letter-spacing:.4px; }
+    .brand .logo { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent-2)); box-shadow: 0 0 0 3px rgba(124,92,255,.2); display:grid; place-items:center; font-weight:900; color:white; }
+
+    .nav a.btn, button.btn { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: white; border: 0; padding: 10px 14px; border-radius: 12px; font-weight: 700; box-shadow: var(--shadow); cursor: pointer; }
+    .nav .links { display: flex; gap: 14px; align-items: center; }
+    .chip { border: 1px solid rgba(124,92,255,.35); padding: 8px 12px; border-radius: 999px; color: var(--muted); }
+
+    /* Hero */
+    .hero { display: grid; grid-template-columns: 1.1fr .9fr; gap: 24px; align-items: center; margin-top: 20px; }
+    .card { background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0)); border: 1px solid rgba(124,92,255,.15); box-shadow: var(--shadow); border-radius: 20px; padding: 20px; }
+
+    .title { font-size: clamp(28px, 2.3vw + 10px, 44px); margin: 0 0 8px; }
+    .subtitle { color: var(--muted); margin-top: 6px; }
+
+    .meter { background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.08)); border: 1px solid rgba(124,92,255,.2); border-radius: 999px; padding: 6px; height: 20px; position: relative; overflow: hidden; }
+    .meter > span { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--accent), var(--accent-2)); border-radius: 999px; transition: width .6s ease; }
+    .meter .label { position:absolute; inset:0; display:grid; place-items:center; font-size: 12px; color: white; text-shadow: 0 1px 2px rgba(0,0,0,.4); font-weight: 700; letter-spacing:.3px; }
+
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 14px; }
+    .stat { background: var(--card); padding: 14px; border-radius: 16px; border: 1px solid rgba(124,92,255,.18); text-align:center; }
+    .stat .h { font-weight: 800; font-size: 22px; }
+    .stat .t { font-size: 12px; color: var(--muted); }
+
+    .avatar-card { display:flex; align-items: center; gap: 16px; }
+    .avatar {
+      width: 96px; height: 96px; border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #fff, #ddd 30%, #bbb 60%, #999 100%);
+      display:grid; place-items:center; font-size: 32px; font-weight: 900; color:#222; border: 4px solid rgba(124,92,255,.35);
+    }
+
+    /* Sections */
+    section { margin: 36px 0; }
+    .section-title { font-size: 20px; letter-spacing:.6px; margin: 0 0 14px; text-transform: uppercase; color: var(--muted); }
+
+    /* Grid cards */
+    .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+    .col-4 { grid-column: span 4; }
+    .col-6 { grid-column: span 6; }
+    .col-12 { grid-column: span 12; }
+
+    @media (max-width: 900px){
+      .hero { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: repeat(6, 1fr); }
+      .col-4 { grid-column: span 6; }
+      .col-6 { grid-column: span 6; }
+    }
+
+    .project { background: var(--card-2); border: 1px solid rgba(124,92,255,.2); border-radius: 18px; padding: 16px; display:flex; flex-direction: column; gap: 10px; }
+    .project .tag { font-size: 12px; color: var(--muted); }
+    .project .name { font-weight: 800; }
+
+    .btn-row { display:flex; gap: 10px; flex-wrap: wrap; }
+    .btn-muted { border: 1px dashed rgba(124,92,255,.35); color: var(--muted); background: transparent; padding: 8px 12px; border-radius: 12px; cursor: pointer; }
+
+    /* Badges */
+    .badges { display:flex; flex-wrap: wrap; gap: 10px; }
+    .badge { padding: 10px 12px; border-radius: 14px; border: 1px solid rgba(124,92,255,.25); background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,0)); font-weight: 700; font-size: 13px; position: relative; }
+    .badge[data-type="legendary"] { border-color: rgba(255,206,74,.6); box-shadow: 0 0 0 2px rgba(255,206,74,.15) inset; }
+    .badge small { display:block; font-weight: 600; color: var(--muted); }
+
+    /* Quests */
+    .quest { background: var(--card); border: 1px solid rgba(124,92,255,.2); border-radius: 16px; padding: 14px; display:flex; align-items:center; justify-content: space-between; gap: 16px; }
+    .quest .meta { display:flex; align-items:center; gap: 12px; }
+    .quest .xp { font-weight: 800; color: var(--good); }
+
+    /* Footer */
+    footer { margin: 60px 0 30px; color: var(--muted); text-align:center; }
+
+    /* Tooltip */
+    .tip { position: relative; cursor: help; }
+    .tip:hover::after {
+      content: attr(data-tip); position: absolute; top: 110%; left: 50%; transform: translateX(-50%);
+      background: var(--bg-soft); color: var(--text); padding: 8px 10px; border-radius: 10px; font-size: 12px; white-space: nowrap; border:1px solid rgba(124,92,255,.25);
+    }
+
+    /* Modal */
+    dialog { border: none; border-radius: 16px; padding: 0; box-shadow: 0 40px 120px rgba(0,0,0,.5); background: var(--card); color: var(--text); width: min(640px, 92vw); }
+    dialog::backdrop { background: rgba(8,10,20,.6); }
+    .modal-head { padding: 18px 20px; border-bottom: 1px solid rgba(124,92,255,.2); display:flex; align-items:center; justify-content: space-between; }
+    .modal-body { padding: 20px; }
+
+    /* Keyboard cue */
+    .kbd { font-family: ui-monospace, "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", monospace; background: var(--bg-soft); border:1px solid rgba(124,92,255,.25); border-bottom-width: 3px; padding: 2px 6px; border-radius: 6px; font-size: 12px; }
+
+    /* Contact */
+    form { display:grid; gap: 10px; }
+    input, textarea {
+      background: var(--bg-soft); border: 1px solid rgba(124,92,255,.25); color: var(--text); border-radius: 12px; padding: 10px 12px;
+    }
+    textarea { min-height: 120px; resize: vertical; }
+  </style>
 </head>
-
 <body>
-
-  <!-- ***** Header ***** -->
-
-  <header class="header" role="banner" id="top">
-    <div class="row">
-      <nav class="nav" role="navigation">
-        <ul class="nav__items">
-          <li class="nav__item nav__dropdown">
-            <a href="#work" class="nav__link">Work</a>
-            <ul class="dropdown">
-              <li><a href="#flutter" class="nav__link">Flutter Projects</a></li>
-              <li><a href="#python" class="nav__link">Python Projects</a></li>
-            </ul>
-          </li>
-          <li class="nav__item"><a href="#clients" class="nav__link">Clients</a></li>
-          <li class="nav__item"><a href="#about" class="nav__link">About</a></li>
-          <li class="nav__item"><a href="#contact" class="nav__link">Contact</a></li>
-        </ul>
-      </nav>
-      
-      
-    </div>
-    <div class="header__text-box row">
-      <div class="header__text">
-        <h1 class="heading-primary">
-          <!-- Replace the following name with your name -->
-          <span>Musana Ali Khan</span>
-        </h1>
-        <!-- Put a small paragraph about yourself -->
-        <p>Flutter Developer and aspiring AI and Machine Learning Student.</p>
-        <a href="#contact" class="btn btn--pink">Get in touch</a>
+  <header class="nav">
+    <div class="max inner">
+      <div class="brand">
+  <div class="logo">
+    <img src="https://musana-ali-khan.github.io/portfolio/images/Musana_square.jpg" 
+         alt="Musana Ali Khan" 
+         style="width:50px; height:50px; border-radius:50%;">
+  </div>
+  <div>
+          <div>Musana Ali Khan</div>
+          <small class="chip">Gamified Portfolio</small>
+        </div>
+      </div>
+      <div class="links">
+        <a class="btn" href="#contact">Recruit Me</a>
+        <button id="themeBtn" class="btn" title="Toggle light/dark (press L)">Toggle Theme</button>
       </div>
     </div>
   </header>
 
-  <main role="main">
-
-    <!-- ***** Work ***** -->
-
-    <section class="work" id="work">
-      <div class="row">
-        <h2>My Work</h2>
-
-        <h4>Flutter Projects</h4>
-        <div class="work__boxes" id="flutter">
-
-          <div class="work__box">
-            <div class="work__text">
-              <h3>Car Connect</h3>
-              <p>
-                While working at Quzafic Innovations, I developed CarConnect, a mobile application that enables car owners to rent out their vehicles and allows users to search for and rent cars seamlessly.
-              </p>
-              <ul class="work__list">
-                <li>Flutter</li>
-                <li>Figma</li>
-                <li>Firebase</li>
-                <li>RevenueCat</li>
-              </ul>
-
-              <!-- <div class="work__links">
-                <a href="#" class="link__text">
-                  Visit Site <span>&rarr;</span>
-                </a>
-                <a href="#">
-                  <img src="./images/github.svg" class="work__code" title="View Source Code" alt="GitHub">
-                </a>
-              </div> -->
-            </div>
-            <div class="work__image-box">
-              <img src="./images/car-connect.jpg" class="work__image" alt="Project 1" />
-            </div>
+  <main class="max">
+    <!-- Hero / Profile -->
+    <section class="hero">
+      <div class="card">
+        <div class="avatar-card">
+           <img class="avatar" id="avatar" src="https://musana-ali-khan.github.io/portfolio/images/Musana_square.jpg" alt="Musana Ali Khan" />
+          <div>
+            <h1 class="title">Musana Ali Khan<span class="tip" data-tip="Let's have some fun!">📝</span></h1>
+            <div class="subtitle">Flutter Developer</div>
+            <div class="subtitle">Guild: <strong>None</strong> · Region: <strong>Remote \ UAE</strong></div>
           </div>
-
-          <div class="work__box">
-            <div class="work__text">
-              <h3>Burim Hazrolli</h3>
-              <p>
-                While working at Quzafic Innovations, I developed Burim Hazrolli, a presentation app developed based on our client request to showcase their services.
-              </p>
-              <ul class="work__list">
-                <li>Flutter</li>
-                <li>Figma</li>
-                <li>Firebase</li>
-              </ul>
-
-              <div class="work__links">
-                <a href="https://play.google.com/store/apps/details?id=com.burim.hazrolli" class="link__text">
-                  Play Store<span>&rarr;&ensp;&ensp;</span>
-                </a>
-                <a href="https://apps.apple.com/us/app/burim-hazrolli/id6590630658" class="link__text">
-                  App Store <span>&rarr;</span>
-                </a>
-                <!-- <a href="#">
-                  <img src="./images/github.svg" class="work__code" title="View Source Code" alt="GitHub">
-                </a> -->
-              </div>
-            </div>
-            <div class="work__image-box">
-              <img src="./images/burim-hazrolli.jpg" class="work__image" alt="Project 3" />
-            </div>
-          </div>
-
-          <div class="work__box">
-            <div class="work__text">
-              <h3>Speci Market</h3>
-              <p>
-                While working at Quzafic Innovations, I developed Speci Market, a presentation app developed based on our client request to showcase their services.
-              </p>
-              <ul class="work__list">
-                <li>Flutter</li>
-                <li>Figma</li>
-                <li>Firebase</li>
-              </ul>
-
-              <div class="work__links">
-                <a href="https://apps.apple.com/us/app/speci-market/id6677062904" class="link__text">
-                  App Store <span>&rarr;</span>
-                </a>
-                <!-- <a href="#">
-                  <img src="./images/github.svg" class="work__code" title="View Source Code" alt="GitHub">
-                </a> -->
-              </div>
-            </div>
-            <div class="work__image-box">
-              <img src="./images/speci-market.jpg" class="work__image" alt="Project 4" />
-            </div>
-          </div>
-
-          <div class="work__box">
-            <div class="work__text">
-              <h3>Get Me In</h3>
-              <p>
-                While working at Quzafic Innovations, I developed Get Me In, an ultimate app for those traveling alone to events and seeking a companion. Whether it's a concert, sports event, or festival, this app ensures you never feel alone.
-              </p>
-              <ul class="work__list">
-                <li>Flutter</li>
-                <li>Figma</li>
-                <li>Firebase</li>
-                <li>Firestore (Real-time Chat)</li>
-              </ul>
-
-              <div class="work__links">
-                <!-- <a href="https://apps.apple.com/us/app/speci-market/id6677062904" class="link__text">
-                  App Store <span>&rarr;</span>
-                </a> -->
-                <!-- <a href="#">
-                  <img src="./images/github.svg" class="work__code" title="View Source Code" alt="GitHub">
-                </a> -->
-              </div>
-            </div>
-            <div class="work__image-box">
-              <img src="./images/get-me-in.jpg" class="work__image" alt="Project 4" />
-            </div>
-          </div>
-
-          <div class="work__box">
-            <div class="work__text">
-              <h3>Card Quest: Memory Challenge</h3>
-              <p>
-                While working at Quzafic Innovations, I developed Card Quest, a thrilling memory game that keeps you hooked! Perfect for both single-player and multiplayer modes, this game challenges your memory and speed in an engaging and competitive way.
-              </p>
-              <ul class="work__list">
-                <li>Flutter</li>
-                <li>Figma</li>
-                <li>Firebase</li>
-                <li>Admob</li>
-                <li>RevenueCat (In-app Subscription)</li>
-              </ul>
-
-              <div class="work__links">
-                <a href="https://play.google.com/store/apps/details?id=com.qz.card.quest.cardquest" class="link__text">
-                  Play Store <span>&rarr;</span>
-                </a>
-                <!-- <a href="#">
-                  <img src="./images/github.svg" class="work__code" title="View Source Code" alt="GitHub">
-                </a> -->
-              </div>
-            </div>
-            <div class="work__image-box">
-              <img src="./images/card-quest.jpg" class="work__image" alt="Project 4" />
-            </div>
-          </div>
-
-          <div class="work__box">
-            <div class="work__text">
-              <h3>MultiQR Scan & Code Generator</h3>
-              <p>
-                While working at Quzafic Innovations, I developed MultiQR Scan & Code Generator, a go-to app for all QR code tasks, offering both efficiency and versatility.
-              </p>
-              <ul class="work__list">
-                <li>Flutter</li>
-                <li>Figma</li>
-                <li>Firebase</li>
-                <li>Admob</li>
-              </ul>
-
-              <div class="work__links">
-                <a href="https://play.google.com/store/apps/details?id=com.qz.qrcode.scanner.qrcodeqz" class="link__text">
-                  Play Store <span>&rarr;</span>
-                </a>
-                <!-- <a href="#">
-                  <img src="./images/github.svg" class="work__code" title="View Source Code" alt="GitHub">
-                </a> -->
-              </div>
-            </div>
-            <div class="work__image-box">
-              <img src="./images/qr-code-scanner.jpg" class="work__image" alt="Project 4" />
-            </div>
-          </div>
-          
-          <div class="work__box">
-            <div class="work__text">
-              <h3>EyeQ</h3>
-              <p>
-                While working at Quzafic Innovations, I developed EyeQ, a comprehensive app designed to help you monitor and maintain your eye health. Developed as a Final Year Project (FYP) by students passionate about improving healthcare accessibility, this app is your personal guide to better vision
-              </p>
-              <ul class="work__list">
-                <li>Flutter</li>
-                <li>Firebase</li>
-              </ul>
-
-              <div class="work__links">
-                <!-- <a href="https://play.google.com/store/apps/details?id=com.qz.qrcode.scanner.qrcodeqz" class="link__text">
-                  Play Store <span>&rarr;</span>
-                </a> -->
-                <!-- <a href="#">
-                  <img src="./images/github.svg" class="work__code" title="View Source Code" alt="GitHub">
-                </a> -->
-              </div>
-            </div>
-            <div class="work__image-box">
-              <img src="./images/eye-Q.jpg" class="work__image" alt="Project 4" />
-            </div>
-          </div>
-          
-          <div class="work__box">
-            <div class="work__text">
-              <h3>EncryptChat</h3>
-              <p>
-                While working at Quzafic Innovations, I developed EncryptChat, a revolutionizing secure communication with its anonymous messaging platform, where privacy and safety are top priorities. Connect effortlessly without revealing personal details, all while enjoying innovative features designed for ultimate security.
-              </p>
-              <ul class="work__list">
-                <li>Flutter</li>
-                <li>Firebase</li>
-                <li>Firestore (Real-time Chat)</li>
-                <li>Agora (Audio Call)</li>
-              </ul>
-
-              <div class="work__links">
-                <!-- <a href="https://play.google.com/store/apps/details?id=com.qz.qrcode.scanner.qrcodeqz" class="link__text">
-                  Play Store <span>&rarr;</span>
-                </a> -->
-                <!-- <a href="#">
-                  <img src="./images/github.svg" class="work__code" title="View Source Code" alt="GitHub">
-                </a> -->
-              </div>
-            </div>
-            <div class="work__image-box">
-              <img src="./images/encrypt-chat.jpg" class="work__image" alt="Project 4" />
-            </div>
-          </div>
-          
-          <div class="work__box">
-            <div class="work__text">
-              <h3>Women Empowerment</h3>
-              <p>
-                While working at Quzafic Innovations, I developed Women Empowerment, it is more than just an app—it's a platform dedicated to inspiring growth and building confidence among women.
-              </p>
-              <ul class="work__list">
-                <li>Flutter</li>
-                <li>Firebase</li>
-              </ul>
-
-              <div class="work__links">
-                <!-- <a href="https://play.google.com/store/apps/details?id=com.qz.qrcode.scanner.qrcodeqz" class="link__text">
-                  Play Store <span>&rarr;</span>
-                </a> -->
-                <!-- <a href="#">
-                  <img src="./images/github.svg" class="work__code" title="View Source Code" alt="GitHub">
-                </a> -->
-              </div>
-            </div>
-            <div class="work__image-box">
-              <img src="./images/women-empowerment.jpg" class="work__image" alt="Project 4" />
-            </div>
-          </div>
-          
-          <div class="work__box">
-            <div class="work__text">
-              <h3>Khan Photostudio</h3>
-              <p>
-                While working at Quzafic Innovations, I developed Khan Photostudio, a  perfect app for turning your photos into personalized products. Whether it's a mug, t-shirt, phone case, or poster, you can easily upload your image and create a design that's truly yours.
-              </p>
-              <ul class="work__list">
-                <li>Flutter</li>
-                <li>Firebase</li>
-              </ul>
-
-              <div class="work__links">
-                <!-- <a href="https://play.google.com/store/apps/details?id=com.qz.qrcode.scanner.qrcodeqz" class="link__text">
-                  Play Store <span>&rarr;</span>
-                </a> -->
-                <!-- <a href="#">
-                  <img src="./images/github.svg" class="work__code" title="View Source Code" alt="GitHub">
-                </a> -->
-              </div>
-            </div>
-            <div class="work__image-box">
-              <img src="./images/khan-photo-studio.jpg" class="work__image" alt="Project 4" />
-            </div>
-          </div>
-
-
-
-
         </div>
-        <br>
-        <br>
-        <br>
-        <h4>Python Projects</h4>
-        <div class="work__boxes" id="python">
 
-          <div class="work__box">
-            <div class="work__text">
-              <h3>Lip Reading System using Deep Learning (FYP)</h3>
-              <p>
-                Our project aims to develop a lip-reading system that captures and analyzes lip motion patterns to predict spoken words, enhancing communication for mute and deaf individuals.
-              </p>
-              <li>𝗢𝗯𝗷𝗲𝗰𝘁𝗶𝘃𝗲𝘀:</li>
-              <p>
-                Our main goal was to create a reliable and accurate lip reading model that interprets lip movements to predict words, bridging the communication gap for those with speech and hearing impairments.
-              </p>
-              <li>𝗠𝗲𝘁𝗵𝗼𝗱𝗼𝗹𝗼𝗴𝘆:</li>
-              
-              <li>𝗔𝗽𝗽𝗿𝗼𝗮𝗰𝗵 𝟭:</li>
-              <p>
-                We used the Inception V3 model with a dataset of videos from 3 males and 3 females. Initially, we struggled due to processing limitations. By applying data augmentation and expanding our dataset to 15,000 videos, we improved our validation accuracy to over 85%.
-              </p>
-              
-              <li>𝗔𝗽𝗽𝗿𝗼𝗮𝗰𝗵 𝟮:</li>
-              <p>
-                We designed a mask with SONAR sensors to capture lip motion patterns. The mask, using Arduino UNO, created a dataset for 10 words, which trained a Random Forest model. This approach showed promising results in accurately predicting words and we improved our validation accuracy to over 80%.
-              </p>
-
-              <li>𝗥𝗲𝘀𝘂𝗹𝘁𝘀:</li>
-              <p>
-                Our project achieved significant improvements in prediction accuracy and system reliability, demonstrating the feasibility of using machine learning and sensor technologies to enhance communication for mute and deaf individuals.
-              </p>
-
-              <li>𝗖𝗼𝗻𝗰𝗹𝘂𝘀𝗶𝗼𝗻:</li>
-              <p>
-                The "Robust Lip Reading System" highlights the potential of advanced technologies to develop effective communication aids. This project lays a strong foundation for future advancements, promising greater vocabulary expansion and improved accuracy, contributing to better communication and quality of life for individuals with speech impairments.
-              </p>
-
-
-              <ul class="work__list">
-                <li>Python</li>
-                <li>Deep Learning</li>
-                <li>Convolutional Neural Network</li>
-                <li>Inception V3</li>
-                <li>Max Pooling</li>
-                <li>Neural Network</li>
-                <li>Jupyter Lab</li>
-                <li>SONAR Sensor</li>
-                <li>Arduino UNO</li>
-              </ul>
-
-              <!-- <div class="work__links">
-                <a href="#" class="link__text">
-                  Visit Site <span>&rarr;</span>
-                </a>
-                <a href="#">
-                  <img src="./images/github.svg" class="work__code" title="View Source Code" alt="GitHub">
-                </a>
-              </div> -->
-            </div>
-            <div class="work__image-box">
-              <img src="./images/Lip Reading System.png" class="work__image" alt="Project 1" />
-            </div>
+        <div style="margin:14px 0 8px; display:flex; align-items:center; gap: 12px;">
+          <div style="font-weight:800">Level <span id="level">1</span></div>
+          <div class="meter" style="flex:1">
+            <span id="xpBar" style="width:0%"></span>
+            <div class="label" id="xpLabel">0 / 500 XP</div>
           </div>
+        </div>
 
+        <div class="stats">
+          <div class="stat"><div class="h" id="questsDone">4</div><div class="t">Clients</div></div>
+          <div class="stat"><div class="h" id="projectsCount">10</div><div class="t">Projects</div></div>
+          <div class="stat"><div class="h" id="skillsCount">5</div><div class="t">Core Skills</div></div>
+          <div class="stat"><div class="h" id="streak">0🔥</div><div class="t">Day Streak</div></div>
+        </div>
 
-          
-          <div class="work__box">
-            <div class="work__text">
-              <h3>A Comparative Study of Four Classifiers for Vehicle Detection and Classification from Images</h3>
-              
-              <p>
-                In this project, we used 4 different classifiers to train our model
-                to detect and classify vehicle images. (Naïve Bayes, Logistic Regression, SVM,
-                Multi-Layer Perceptron )                
-              </p>
-              
+        <div class="btn-row" style="margin-top:12px">
+          <button class="btn" id="claimDaily">Claim Daily Bonus (+50 XP)</button>
+          <button class="btn-muted tip" data-tip="Download a real PDF resume by replacing the link target below." onclick="window.open('https://drive.google.com/file/d/1n6mbo-jGmRlYwS73P8PzcgFbWxmgs3JR/view?usp=sharing','_blank')">Download Resume</button>
+          <span class="chip tip" data-tip="Keyboard: press L for theme, Q to focus quests">Shortcuts: <span class="kbd">L</span> <span class="kbd">Q</span></span>
+        </div>
+      </div>
 
-
-              <ul class="work__list">
-                <li>Python</li>
-                <li>Support Vector Machines (SVM)</li>
-                <li>Naive Bayes</li>
-                <li>Logistic Regression</li>
-                <li>Neural Network (MLPClassifier)</li>
-                <li>Google Colab</li>
-              </ul>
-
-              <!-- <div class="work__links">
-                <a href="#" class="link__text">
-                  Visit Site <span>&rarr;</span>
-                </a>
-                <a href="#">
-                  <img src="./images/github.svg" class="work__code" title="View Source Code" alt="GitHub">
-                </a>
-              </div> -->
-            </div>
-            <!-- <div class="work__image-box">
-              <img src="./images/Lip Reading System.png" class="work__image" alt="Project 1" />
-            </div> -->
-          </div>
-
-
+      <div class="card">
+        <h3 class="section-title">About</h3>
+        <p>
+          Hi! I build delightful, high-performance mobile apps with Flutter, focusing on smooth cross-platform experiences, accessible UX, and crisp, engaging micro-interactions. I enjoy turning complex ideas into intuitive, user-friendly applications.
+        </p>
+        <p class="subtitle">Open to roles in Frontend, Full‑Stack in Flutter Development.</p>
+        <div class="badges" style="margin-top:10px">
+          <div class="badge" aria-label="Years of experience"><small>Experience</small> 5 yrs</div>
+          <div class="badge" aria-label="Preferred stack"><small>Main Stack</small> Figma • Flutter • Firebase • API</div>
+          <div class="badge" data-type="legendary" aria-label="Special achievement"><small>Feat</small> Build responsive Flutter apps in a day ⚡</div>
         </div>
       </div>
     </section>
 
+    <!-- Skills -->
+    <section>
+      <h3 class="section-title">Skills · Loadout</h3>
+      <div class="grid">
+        <div class="col-6 card">
+          <h4>Frontend (Mobile)</h4>
+            <ul>
+              <li>Flutter, Dart</li>
+              <li>State Management (BLoC, GetX)</li>
+              <li>UI/UX (Figma, Material, Custom Widgets)</li>
+              <li>Animations (Lottie, Hero, AnimatedControllers)</li>
+            </ul>
 
-
-    
-    <!-- ***** Clients ***** -->
-
-    <section class="client" id="clients">
-      <div class="row">
-        <h2>Clients</h2>
-        <div class="client__logos">
-          <!-- Add logos of the clients or companies you'have worked with. -->
-          <img src="./images/flunari-marketing.jpg" class="client__logo" alt="Company 2" />
-          <img src="./images/quzafic-innovations.png" class="client__logo" alt="Company 3" />
-          <img src="./images/speci-market-logo.png" class="client__logo" alt="Company 1" />
-          <!-- <img src="./images/card-quest-logo.png" class="client__logo" alt="Company 1" /> -->
-          <!-- <img src="./images/KPS_logo-removebg-preview.png" class="client__logo" alt="Company 3" /> -->
-          <!-- <img src="./images/chippy.png" class="client__logo" alt="Company 1" /> -->
+        </div>
+        <div class="col-6 card">
+          <h4>Backend</h4>
+          <ul>
+  <li>Firebase Console</li>
+  <li>REST API Integration</li>
+  <li>Cloud Functions & Serverless</li>
+  <li>Payments Integration</li>
+  <li>Google Map</li>
+</ul>
+        </div>
+        <div class="col-12 card">
+          <h4>Perks & Utilities</h4>
+          <div class="badges">
+            <div class="badge"><small>Tool</small> Git & CI/CD</div>
+            <div class="badge"><small>Cloud</small> Firebase • MongoDB</div>
+            <div class="badge"><small>Design</small>Figma • Adobe XD</div>
+            <div class="badge"><small>IDE</small> Android Studio • VS Code</div>
+            <div class="badge"><small>Lang</small>Dart • Python • C++</div>
+            <div class="badge"><small>State Management</small> BLoC • GetX</div>
+            <div class="badge"><small>Machine Learning</small> Scikit-learn • Pandas • NumPy • Matplotlib • Data Preprocessing • Model Training & Evaluation</div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ***** About ***** -->
+    <!-- Projects -->
+    <section>
+      <h3 class="section-title">Projects · Unlocks</h3>
+      <div class="grid" id="projects">
 
-    <section class="about" id="about">
-      <div class="row">
-        <h2>About Me</h2>
-        <div class="about__content">
-          <div class="about__text">
-            <!-- Replace the below paragraph with info about yourself -->
+        <article class="col-4 project">
+            <div class="tag">Flutter Mobile Game</div>
+            <div class="name">Card Quest: Memory Challenge</div>
+            <p>Developed at Quzafic Innovations, Card Quest is a thrilling memory game with single-player and multiplayer modes that test memory and speed.</p>
+            <div class="btn-row">
+              <button class="btn" data-open="cardquest">View Details</button>
+              <button class="btn-muted" onclick="gainXP(40)">⭐ Endorse (+40 XP)</button>
+            </div>
+          </article>
+
+        <article class="col-4 project">
+            <div class="tag">Flutter Mobile App</div>
+            <div class="name">CarConnect — Vehicle Rental Platform</div>
+            <p>Developed at Quzafic Innovations, CarConnect enables car owners to rent out vehicles and allows users to search and book cars seamlessly.</p>
+            <div class="btn-row">
+              <button class="btn" data-open="carconnect">View Details</button>
+              <button class="btn-muted" onclick="gainXP(40)">⭐ Endorse (+40 XP)</button>
+            </div>
+          </article>
+
+          
+          <article class="col-4 project">
+            <div class="tag">Flutter Mobile App</div>
+            <div class="name">Burim Hazrolli — Presentation App</div>
+            <p>Developed at Quzafic Innovations, Burim Hazrolli is a client-requested presentation app designed to showcase services effectively.</p>
+            <div class="btn-row">
+              <button class="btn" data-open="burim">View Details</button>
+              <button class="btn-muted" onclick="gainXP(40)">⭐ Endorse (+40 XP)</button>
+            </div>
+          </article>
+
+          <article class="col-4 project">
+            <div class="tag">Flutter Mobile App</div>
+            <div class="name">Speci Market — Presentation App</div>
+            <p>Developed at Quzafic Innovations, Speci Market is a client-requested presentation app designed to showcase services professionally.</p>
+            <div class="btn-row">
+              <button class="btn" data-open="specimarket">View Details</button>
+              <button class="btn-muted" onclick="gainXP(40)">⭐ Endorse (+40 XP)</button>
+            </div>
+          </article>
+
+          <article class="col-4 project">
+            <div class="tag">Flutter Mobile App</div>
+            <div class="name">Get Me In — Event Companion App</div>
+            <p>Developed at Quzafic Innovations, Get Me In helps solo travelers find companions for concerts, sports events, and festivals.</p>
+            <div class="btn-row">
+              <button class="btn" data-open="getmein">View Details</button>
+              <button class="btn-muted" onclick="gainXP(40)">⭐ Endorse (+40 XP)</button>
+            </div>
+          </article>
+
+          <article class="col-4 project">
+            <div class="tag">Flutter Mobile App</div>
+            <div class="name">MultiQR Scan & Code Generator</div>
+            <p>Developed at Quzafic Innovations, MultiQR is an all-in-one app for scanning and generating QR codes with efficiency and versatility.</p>
+            <div class="btn-row">
+              <button class="btn" data-open="multiqr">View Details</button>
+              <button class="btn-muted" onclick="gainXP(40)">⭐ Endorse (+40 XP)</button>
+            </div>
+          </article>
+
+          <article class="col-4 project">
+            <div class="tag">Flutter Mobile App</div>
+            <div class="name">EyeQ — Eye Health Monitoring</div>
+            <p>Developed at Quzafic Innovations, EyeQ is a comprehensive app that helps users monitor and maintain eye health. Built as a Final Year Project (FYP) to promote healthcare accessibility.</p>
+            <div class="btn-row">
+              <button class="btn" data-open="eyeq">View Details</button>
+              <button class="btn-muted" onclick="gainXP(40)">⭐ Endorse (+40 XP)</button>
+            </div>
+          </article>
+
+          <article class="col-4 project">
+            <div class="tag">Flutter Mobile App</div>
+            <div class="name">EncryptChat — Secure Messaging</div>
+            <p>Developed at Quzafic Innovations, EncryptChat is an anonymous messaging app focused on privacy, security, and innovative communication features.</p>
+            <div class="btn-row">
+              <button class="btn" data-open="encryptchat">View Details</button>
+              <button class="btn-muted" onclick="gainXP(40)">⭐ Endorse (+40 XP)</button>
+            </div>
+          </article>
+
+          <article class="col-4 project">
+            <div class="tag">Flutter Mobile App</div>
+            <div class="name">Password Vault App</div>
+            <p>A simple and secure password manager built with Flutter and BLoC to safely store and manage encrypted credentials.</p>
+            <div class="btn-row">
+              <button class="btn" data-open="passwordvault">View Details</button>
+              <button class="btn-muted" onclick="gainXP(40)">⭐ Endorse (+40 XP)</button>
+            </div>
+          </article>
+
+          <article class="col-4 project">
+            <div class="tag">Flutter Mobile App</div>
+            <div class="name">Move & Mood — Mental Wellbeing Companion</div>
+            <p>An interactive app designed to boost positivity, reduce stress, and support mental wellness through AI chats, exercises, games, and motivational tools.</p>
+            <div class="btn-row">
+              <button class="btn" data-open="movemood">View Details</button>
+              <button class="btn-muted" onclick="gainXP(40)">⭐ Endorse (+40 XP)</button>
+            </div>
+          </article>
+
+          <article class="col-4 project">
+            <div class="tag">Flutter Mobile App</div>
+            <div class="name">PinkRider — Women’s Ride-Hailing Service</div>
+            <p>A revolutionary ride-hailing service in Pakistan, designed specifically for women. PinkRider ensures safe, reliable, and convenient transportation while empowering women.</p>
+            <div class="btn-row">
+              <button class="btn" data-open="pinkrider">View Details</button>
+              <button class="btn-muted" onclick="gainXP(40)">⭐ Endorse (+40 XP)</button>
+            </div>
+          </article>
+
+          <article class="col-4 project">
+            <div class="tag">Web Project</div>
+            <div class="name">Flunari Marketing — WordPress Website</div>
+            <p>Developed at Flunari Marketing, this website promotes authentic engagement services to help brands grow their likes, shares, and subscribers organically.</p>
+            <div class="btn-row">
+              <button class="btn" data-open="flunari">View Details</button>
+              <button class="btn-muted" onclick="gainXP(40)">⭐ Endorse (+40 XP)</button>
+            </div>
+          </article>
+
+          <article class="col-4 project">
+            <div class="tag">Python / AI Project</div>
+            <div class="name">Lip Reading System using Deep Learning (FYP)</div>
+            <p>A Final Year Project (FYP) designed to assist mute and deaf individuals by predicting spoken words through lip movement analysis using deep learning and sensor-based approaches.</p>
+            <div class="btn-row">
+              <button class="btn" data-open="lipreading">View Details</button>
+              <button class="btn-muted" onclick="gainXP(40)">⭐ Endorse (+40 XP)</button>
+            </div>
+          </article>
+
+          <article class="col-4 project">
+            <div class="tag">Python / ML Project</div>
+            <div class="name">Comparative Study of Vehicle Classification</div>
+            <p>A machine learning project evaluating four classifiers (Naïve Bayes, Logistic Regression, SVM, MLP) for vehicle detection and classification from images.</p>
+            <div class="btn-row">
+              <button class="btn" data-open="vehicleclassification">View Details</button>
+              <button class="btn-muted" onclick="gainXP(40)">⭐ Endorse (+40 XP)</button>
+            </div>
+          </article>
+
+
+
+      </div>
+    </section>
+
+    <!-- Achievements -->
+    <section>
+      <h3 class="section-title">Achievements · Badges</h3>
+      <div class="badges">
+        <!-- <div class="badge"><small>2024</small> Hackathon Winner 🏆</div> -->
+        <div class="badge"><small>2024</small> Devpost Anniversary Level 3</div>
+        <div class="badge"><small>2021</small> X Hackathons Level 2</div>
+        <div class="badge"><small>2021</small> Top 10 Women Empowerment Hackathon</div>
+        <div class="badge" data-type="legendary"><small>Rare</small> 99.9% Lighthouse ⚡</div>
+      </div>
+    </section>
+
+    <!-- Quests -->
+    <section id="quests">
+      <h3 class="section-title">Quest Board</h3>
+      <div class="grid">
+        <div class="col-12 quest">
+          <div class="meta"><input type="checkbox" id="q1" /> <label for="q1"><strong>Complete a code review</strong> · <span class="subtitle">Leave thoughtful feedback on a PR</span></label></div>
+          <div class="xp">+120 XP</div>
+          <button class="btn" data-complete="q1" data-xp="120">Complete</button>
+        </div>
+        <div class="col-12 quest">
+          <div class="meta"><input type="checkbox" id="q2" /> <label for="q2"><strong>Ship a micro‑feature</strong> · <span class="subtitle">Small UI enhancement with tests</span></label></div>
+          <div class="xp">+180 XP</div>
+          <button class="btn" data-complete="q2" data-xp="180">Complete</button>
+        </div>
+        <div class="col-12 quest">
+          <div class="meta"><input type="checkbox" id="q3" /> <label for="q3"><strong>Write a blog post</strong> · <span class="subtitle">Share a lesson learned</span></label></div>
+          <div class="xp">+240 XP</div>
+          <button class="btn" data-complete="q3" data-xp="240">Complete</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <h3 class="section-title">Recruiter Portal · Contact</h3>
+      <div class="grid">
+        <div class="col-6 card">
+            <form action="mailto:musanaali02@gmail.com" method="post" enctype="text/plain">
+              <input name="name" placeholder="Your Name" required />
+              <input type="email" name="email" placeholder="Email" required />
+              <textarea name="message" placeholder="How can I help?" required></textarea>
+              <button class="btn" type="submit">Send Message</button>
+            </form>
+          </div>
+          <div class="col-6 card">
+            <h4>Socials</h4>
             <p>
-              I'm a dedicated Flutter Developer with a passion for AI and Machine Learning, inspired early on by my elder brother. From creating my first game in Python to building cross-platform mobile apps, I’ve continuously grown my skills across Flutter, AI, ML, and project management. A fast learner with a strong work ethic, I thrive on innovation, research, and turning ideas into impactful digital solutions.
+              <a href="https://github.com/Musana-Ali-Khan" target="_blank">GitHub</a> ·
+              <a href="https://www.linkedin.com/in/musana-ali-khan-505916227/" target="_blank">LinkedIn</a> ·
+              <a href="https://www.youtube.com/@MusanaCodingJourney" target="_blank">YouTube (Coding Journey)</a> ·
+              <a href="https://www.youtube.com/@musanaali5504" target="_blank">YouTube (Personal)</a> ·
+              <a href="https://devpost.com/musanaali02" target="_blank">Devpost</a> ·
+              <a href="https://www.udemy.com/user/musana-ali-khan/?srsltid=AfmBOooJ4YLCiwxpYr4k9an02dtNX2a_V1UZZn9pojsQzYCmxDbAtvb2" target="_blank">Udemy</a>
             </p>
-            <!-- Provide a link to your resume -->
-            <!-- <a href="#" class="btn">My Resume</a> -->
+            <p class="subtitle">Connect with me across platforms — GitHub, LinkedIn, YouTube, Devpost, and Udemy.</p>
           </div>
-
-          <div class="about__photo-container">
-            <!-- Add a nice photo of yourself -->
-            <img class="about__photo" src="./images/Musana_square.jpg" alt="" />
-          </div>
-        </div>
+          
       </div>
     </section>
+
+    <footer>
+      <div>Press <span class="kbd">L</span> to toggle theme.</div>
+    </footer>
   </main>
 
-  <!-- ***** Contact ***** -->
-
-  <section class="contact" id="contact">
-    <div class="row">
-      <h2>Get in Touch</h2>
-      <div class="contact__info">
-        <p>
-          Looking for a high-performance, user-friendly mobile app to bring your idea to life? Need consultation, have questions, feedback, or just want to say "Hi 👋"? Feel free to reach out — I'm always happy to connect and will do my best to respond promptly. The fastest way to contact me is via email. 😊
-        </p>
-        <!-- Replace the email with yours -->
-        <a href="mailto:musanaali02@gmail.com" class="btn">musanaali02@gmail.com</a>
+  <!-- Project Modals -->
+  <dialog id="modal-cardquest">
+    <div class="modal-head">
+      <strong>Card Quest: Memory Challenge</strong>
+      <button class="btn-muted" onclick="this.closest('dialog').close()">Close</button>
+    </div>
+    <div class="modal-body">
+      <p>Role: Flutter Developer</p>
+      <ul>
+        <li>Designed and developed an engaging memory game with both single-player and multiplayer modes.</li>
+        <li>Implemented Firebase for real-time multiplayer, authentication, and data management.</li>
+        <li>Integrated AdMob for monetization through in-game ads.</li>
+        <li>Added in-app subscriptions and premium features using RevenueCat.</li>
+        <li>Collaborated in Figma to design an appealing and user-friendly interface.</li>
+      </ul>
+      <div class="btn-row">
+        <a class="btn" href="https://play.google.com/store/apps/details?id=com.qz.card.quest.cardquest" target="_blank">🎮 Play Store Demo</a>
       </div>
     </div>
-  </section>
+  </dialog>
 
-  <!-- ***** Footer ***** -->
-
-  <footer role="contentinfo" class="footer">
-    <div class="row">
-      <!-- Update the links to point to your accounts -->
-      <ul class="footer__social-links">
-        <li class="footer__social-link-item">
-          <a href="https://www.youtube.com/@MusanaCodingJourney" title="Link to Youtube Profile">
-            <img src="./images/icons8-youtube.svg" class="footer__social-image" alt="Twitter">
-          </a>
-        </li>
-        <li class="footer__social-link-item">
-          <a href="https://musanacodingjourney.blogspot.com/" title="Link to Blogger Profile">
-            <img src="./images/icons8-blogger.svg" class="footer__social-image" alt="Twitter">
-          </a>
-        </li>
-        <!-- <li class="footer__social-link-item">
-          <a href="https://github.com/nisarhassan12/" title="Link to Github Profile">
-            <img src="./images/github.svg" class="footer__social-image" alt="Github">
-          </a>
-        </li> -->
-        <!-- <li class="footer__social-link-item">
-          <a href="https://codepen.io/nisar_hassan" title="Link to Codepen Profile">
-            <img src="./images/codepen.svg" class="footer__social-image" alt="Codepen">
-          </a>
-        </li> -->
-        <li class="footer__social-link-item">
-          <a href=https://www.linkedin.com/in/musana-ali-khan-505916227/">
-            <img src="./images/linkedin.svg" title="Link to Linkedin Profile" class="footer__social-image" alt="Linkedin">
-          </a>
-        </li>
-      </ul>
-
-      <!-- If you give me some credit by keeping the below paragraph, will be huge for me 😊 Thanks.
-      <p>
-        &copy; 2020 - Template designed & developed by <a href="https://nisar.dev" class="link">Nisar</a>.
-      </p>
-      <div class="footer__github-buttons">
-        <iframe
-          src="https://ghbtns.com/github-btn.html?user=nisarhassan12&repo=portfolio-template&type=watch&count=true"
-          frameborder="0" scrolling="0" width="170" height="20" title="Watch Portfolio Template on GitHub">
-        </iframe>
-      </div> -->
+  <dialog id="modal-carconnect">
+    <div class="modal-head">
+      <strong>CarConnect — Vehicle Rental Platform</strong>
+      <button class="btn-muted" onclick="this.closest('dialog').close()">Close</button>
     </div>
-  </footer>
+    <div class="modal-body">
+      <p>Role: Flutter Developer</p>
+      <ul>
+        <li>Built core features including car listing, search, and rental booking flows.</li>
+        <li>Integrated Firebase for authentication, database, and notifications.</li>
+        <li>Implemented subscription and payment handling with RevenueCat.</li>
+        <li>Collaborated with designers in Figma to deliver a clean, intuitive UI/UX.</li>
+      </ul>
+      <div class="btn-row">
+        <span class="btn-muted">🚗 No Live Demo Available</span>
+      </div>
+    </div>
+  </dialog>
 
-  <a href="#top" class="back-to-top" title="Back to Top">
-    <img src="./images/arrow-up.svg" alt="Back to Top" class="back-to-top__image"/>
-  </a>
-  <script src="./index.js"></script>
+  <dialog id="modal-burim">
+    <div class="modal-head">
+      <strong>Burim Hazrolli — Presentation App</strong>
+      <button class="btn-muted" onclick="this.closest('dialog').close()">Close</button>
+    </div>
+    <div class="modal-body">
+      <p>Role: Flutter Developer</p>
+      <ul>
+        <li>Developed a custom presentation app tailored to client needs.</li>
+        <li>Built in Flutter with Firebase backend for scalability and performance.</li>
+        <li>Collaborated in Figma to ensure a modern and professional UI/UX.</li>
+        <li>Implemented multi-platform deployment for both Android and iOS.</li>
+      </ul>
+      <div class="btn-row">
+        <a class="btn" href="https://play.google.com/store/apps/details?id=com.burim.hazrolli" target="_blank">📱 Play Store</a>
+        <a class="btn" href="https://apps.apple.com/us/app/burim-hazrolli/id6590630658" target="_blank">🍎 App Store</a>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="modal-specimarket">
+    <div class="modal-head">
+      <strong>Speci Market — Presentation App</strong>
+      <button class="btn-muted" onclick="this.closest('dialog').close()">Close</button>
+    </div>
+    <div class="modal-body">
+      <p>Role: Flutter Developer</p>
+      <ul>
+        <li>Developed a presentation app tailored to client specifications.</li>
+        <li>Built using Flutter for cross-platform performance.</li>
+        <li>Integrated Firebase for backend services and data management.</li>
+        <li>Designed the UI/UX collaboratively in Figma for a sleek presentation style.</li>
+        <li>Deployed to iOS via the App Store for client accessibility.</li>
+      </ul>
+      <div class="btn-row">
+        <a class="btn" href="https://apps.apple.com/us/app/speci-market/id6677062904" target="_blank">🍎 App Store</a>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="modal-getmein">
+    <div class="modal-head">
+      <strong>Get Me In — Event Companion App</strong>
+      <button class="btn-muted" onclick="this.closest('dialog').close()">Close</button>
+    </div>
+    <div class="modal-body">
+      <p>Role: Flutter Developer</p>
+      <ul>
+        <li>Developed an app for users to connect and attend events together, reducing the feeling of going alone.</li>
+        <li>Implemented real-time chat using Firebase Firestore for instant communication between users.</li>
+        <li>Designed modern UI/UX flows in Figma for an engaging, social experience.</li>
+        <li>Integrated Firebase for authentication, data management, and notifications.</li>
+      </ul>
+      <div class="btn-row">
+        <span class="btn-muted">🚫 No Live Demo Available</span>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="modal-multiqr">
+    <div class="modal-head">
+      <strong>MultiQR Scan & Code Generator</strong>
+      <button class="btn-muted" onclick="this.closest('dialog').close()">Close</button>
+    </div>
+    <div class="modal-body">
+      <p>Role: Flutter Developer</p>
+      <ul>
+        <li>Developed a versatile app to scan and generate QR codes with multiple formats supported.</li>
+        <li>Integrated Firebase for backend services and app analytics.</li>
+        <li>Monetized the app with AdMob for ad-based revenue.</li>
+        <li>Collaborated in Figma to design a sleek and user-friendly interface.</li>
+      </ul>
+      <div class="btn-row">
+        <a class="btn" href="https://play.google.com/store/apps/details?id=com.qz.qrcode.scanner.qrcodeqz" target="_blank">📱 Play Store</a>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="modal-eyeq">
+    <div class="modal-head">
+      <strong>EyeQ — Eye Health Monitoring</strong>
+      <button class="btn-muted" onclick="this.closest('dialog').close()">Close</button>
+    </div>
+    <div class="modal-body">
+      <p>Role: Flutter Developer</p>
+      <ul>
+        <li>Developed a healthcare-focused mobile app to monitor and guide users in maintaining eye health.</li>
+        <li>Leveraged Firebase for authentication, data storage, and user progress tracking.</li>
+        <li>Collaborated with students as part of a Final Year Project aimed at improving healthcare accessibility.</li>
+        <li>Built with Flutter for cross-platform compatibility and a smooth user experience.</li>
+      </ul>
+      <div class="btn-row">
+        <span class="btn-muted">🚫 No Live Demo Available</span>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="modal-encryptchat">
+    <div class="modal-head">
+      <strong>EncryptChat — Secure Messaging</strong>
+      <button class="btn-muted" onclick="this.closest('dialog').close()">Close</button>
+    </div>
+    <div class="modal-body">
+      <p>Role: Flutter Developer</p>
+      <ul>
+        <li>Developed a secure and anonymous messaging platform with a focus on privacy and safety.</li>
+        <li>Implemented real-time chat using Firebase Firestore for instant and reliable communication.</li>
+        <li>Integrated Agora to enable seamless, high-quality audio calls between users.</li>
+        <li>Built with Flutter for cross-platform compatibility and Firebase for backend services.</li>
+        <li>Designed to allow users to connect without revealing personal details, ensuring anonymity.</li>
+      </ul>
+      <div class="btn-row">
+        <span class="btn-muted">🔒 No Live Demo Available</span>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="modal-passwordvault">
+    <div class="modal-head">
+      <strong>Password Vault App</strong>
+      <button class="btn-muted" onclick="this.closest('dialog').close()">Close</button>
+    </div>
+    <div class="modal-body">
+      <p>Role: Flutter Developer</p>
+      <ul>
+        <li>Implemented secure storage of credentials (Platform, Email, Password, Additional Details) with AES encryption.</li>
+        <li>Home screen displays only platform and email, keeping sensitive details hidden by default.</li>
+        <li>Built dialogs to view/decrypt details, hide, or delete vault items securely.</li>
+        <li>Applied <code>flutter_bloc</code> for clean and reactive state management.</li>
+        <li>Encryption: AES CBC with PKCS7 padding using a fixed key and IV (stored in <code>util/encryption_helper.dart</code>).</li>
+      </ul>
+      <p><strong>Tech Stack:</strong> Flutter • flutter_bloc • encrypt (AES)</p>
+      <div class="btn-row">
+        <a class="btn-muted" href="https://github.com/Musana-Ali-Khan/Password-Vault-App" target="_blank">📂 Source Code (GitHub)</a>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="modal-movemood">
+    <div class="modal-head">
+      <strong>Move & Mood — Mental Wellbeing Companion</strong>
+      <button class="btn-muted" onclick="this.closest('dialog').close()">Close</button>
+    </div>
+    <div class="modal-body">
+      <p>Role: Flutter Developer</p>
+      <ul>
+        <li><strong>AI Friend:</strong> Google AI-powered chatbot offering empathy, humor, and encouragement for mental wellness.</li>
+        <li><strong>Exercises:</strong> Cat Stretch and Breathing exercises to relieve stress and improve focus.</li>
+        <li><strong>Emoji Game:</strong> A lighthearted free-fall emoji game for relaxation and fun breaks.</li>
+        <li><strong>Positivity Tree:</strong> Interactive motivational feature that grows with quotes and positivity clicks.</li>
+        <li>Designed to make mental health support accessible, interactive, and enjoyable.</li>
+      </ul>
+      <p><strong>Tech Stack:</strong> Flutter • Firebase • Google AI (Chat Integration)</p>
+      <div class="btn-row">
+        <a class="btn-muted" href="https://github.com/Musana-Ali-Khan/move-mood" target="_blank">📂 Source Code (GitHub)</a>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="modal-pinkrider">
+    <div class="modal-head">
+      <strong>PinkRider — Women’s Ride-Hailing Service</strong>
+      <button class="btn-muted" onclick="this.closest('dialog').close()">Close</button>
+    </div>
+    <div class="modal-body">
+      <p>Role: Flutter Developer</p>
+      <ul>
+        <li>Developed a ride-hailing platform exclusively for women, promoting safety and empowerment.</li>
+        <li>Implemented real-time ride tracking and ride management features using Firebase and APIs.</li>
+        <li>Integrated Google Maps for navigation and live location updates.</li>
+        <li>Built an in-app wallet for secure payments and transactions.</li>
+        <li>Added OTP-based authentication using a third-party SDK for secure phone number verification.</li>
+      </ul>
+      <p><strong>Tech Stack:</strong> Flutter • Firebase • REST APIs • Google Maps SDK • Third-Party OTP SDK • In-App Wallet</p>
+      <div class="btn-row">
+        <a class="btn" href="https://play.google.com/store/apps/details?id=com.pink.rider" target="_blank">📱 Play Store</a>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="modal-flunari">
+    <div class="modal-head">
+      <strong>Flunari Marketing — WordPress Website</strong>
+      <button class="btn-muted" onclick="this.closest('dialog').close()">Close</button>
+    </div>
+    <div class="modal-body">
+      <p>Role: WordPress Developer</p>
+      <ul>
+        <li>Built a professional WordPress website to showcase Flunari Marketing’s services.</li>
+        <li>Focused on authentic engagement strategies, helping brands gain real followers and community growth.</li>
+        <li>Integrated <strong>PayPal</strong>, <strong>Cryptomus</strong>, and <strong>DePay</strong> for flexible and secure online payments.</li>
+        <li>Designed with user experience in mind, ensuring a modern, responsive, and accessible layout.</li>
+      </ul>
+      <p><strong>Tech Stack:</strong> WordPress • PayPal • Cryptomus • DePay</p>
+      <div class="btn-row">
+        <a class="btn" href="https://flunari-marketing.com/" target="_blank">🌐 Live Website</a>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="modal-lipreading">
+    <div class="modal-head">
+      <strong>Lip Reading System using Deep Learning (FYP)</strong>
+      <button class="btn-muted" onclick="this.closest('dialog').close()">Close</button>
+    </div>
+    <div class="modal-body">
+      <p>Role: Machine Learning Engineer (Student Project)</p>
+      <ul>
+        <li><strong>Objective:</strong> Developed a robust lip-reading system to interpret lip movements and predict words, enhancing communication for individuals with speech and hearing impairments.</li>
+        <li><strong>Approach 1:</strong> Trained Inception V3 CNN on a dataset of 15,000+ videos, achieving over 85% validation accuracy after data augmentation.</li>
+        <li><strong>Approach 2:</strong> Designed a custom mask with SONAR sensors connected to Arduino UNO, capturing lip motion data for 10 words and training a Random Forest model (80%+ accuracy).</li>
+        <li>Showcased the feasibility of combining <strong>Deep Learning</strong> with <strong>IoT sensor-based approaches</strong> for communication aids.</li>
+        <li>Results demonstrated significant improvements in accuracy, laying groundwork for future expansion and reliability.</li>
+      </ul>
+      <p><strong>Tech Stack:</strong> Python • Deep Learning • Inception V3 • CNN • Max Pooling • Neural Networks • Jupyter Lab • SONAR Sensor • Arduino UNO</p>
+      <h4>Project Demo Video</h4>
+    <p>
+      <a href="https://www.linkedin.com/posts/musana-ali-khan-505916227_innovation-iot-machinelearning-activity-7214722241488384001-25v4" target="_blank">
+        ▶ Watch the demo on LinkedIn
+      </a>
+    </p>
+      <div class="btn-row">
+        <span class="btn-muted">🤖 Research Project — No Live Demo</span>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="modal-vehicleclassification">
+    <div class="modal-head">
+      <strong>A Comparative Study of Four Classifiers for Vehicle Detection and Classification</strong>
+      <button class="btn-muted" onclick="this.closest('dialog').close()">Close</button>
+    </div>
+    <div class="modal-body">
+      <p>Role: Machine Learning Researcher</p>
+      <ul>
+        <li>Conducted a comparative study on four classifiers for vehicle detection and classification from images.</li>
+        <li>Implemented <strong>Naïve Bayes</strong>, <strong>Logistic Regression</strong>, <strong>Support Vector Machines (SVM)</strong>, and <strong>Multi-Layer Perceptron (MLPClassifier)</strong>.</li>
+        <li>Trained models in <strong>Google Colab</strong> for reproducibility and ease of collaboration.</li>
+        <li>Evaluated performance metrics to determine the most effective classifier for the dataset.</li>
+        <li>Demonstrated practical insights into model selection for image-based vehicle recognition tasks.</li>
+      </ul>
+      <p><strong>Tech Stack:</strong> Python • SVM • Naïve Bayes • Logistic Regression • MLP (Neural Network) • Google Colab</p>
+      <div class="btn-row">
+        <span class="btn-muted">📊 Research Project — No Live Demo</span>
+      </div>
+    </div>
+  </dialog>
+  
+
+  <script>
+    // --- Simple RPG‑style state ---
+    const store = {
+      get() {
+        try { return JSON.parse(localStorage.getItem('gp:state')) || { xp: 0, level: 1, quests: {}, streak: 0, lastLogin: null }; } catch { return { xp:0, level:1, quests:{}, streak:0, lastLogin:null }; }
+      },
+      set(v) { localStorage.setItem('gp:state', JSON.stringify(v)); }
+    };
+
+    const themeStore = {
+      get() { return localStorage.getItem('gp:theme'); },
+      set(v) { localStorage.setItem('gp:theme', v); }
+    };
+
+    const XP_PER_LEVEL = 500; // constant for demo — tweak as you like
+
+    function levelFromXP(xp){
+      return Math.max(1, Math.floor(xp / XP_PER_LEVEL) + 1);
+    }
+
+    function gainXP(amount){
+      const s = store.get();
+      s.xp += amount;
+      s.level = levelFromXP(s.xp);
+      store.set(s);
+      render();
+      popToast(`+${amount} XP gained!`);
+    }
+
+    function completeQuest(id, amount){
+      const s = store.get();
+      if (s.quests[id]) return; // already completed
+      s.quests[id] = true;
+      s.xp += amount;
+      s.level = levelFromXP(s.xp);
+      store.set(s);
+      render();
+      popToast(`Quest completed! +${amount} XP`);
+    }
+
+    function dailyBonus(){
+      const s = store.get();
+      const today = new Date();
+      const key = today.toDateString();
+      if (s.lastLogin === key){ popToast('Already claimed today!'); return; }
+      // streak logic
+      const yesterday = new Date(Date.now() - 86400000).toDateString();
+      s.streak = (s.lastLogin === yesterday) ? (s.streak + 1) : 1;
+      s.lastLogin = key;
+      s.xp += 50;
+      s.level = levelFromXP(s.xp);
+      store.set(s);
+      render();
+      popToast('Daily bonus claimed! +50 XP');
+    }
+
+    function render(){
+      const s = store.get();
+      document.getElementById('level').textContent = s.level;
+      const currentLevelXP = (s.level - 1) * XP_PER_LEVEL;
+      const progress = Math.min(100, ((s.xp - currentLevelXP) / XP_PER_LEVEL) * 100);
+      document.getElementById('xpBar').style.width = progress + '%';
+      document.getElementById('xpLabel').textContent = `${s.xp - currentLevelXP} / ${XP_PER_LEVEL} XP`;
+
+      const done = Object.values(s.quests).filter(Boolean).length;
+      document.getElementById('questsDone').textContent = done;
+      document.getElementById('streak').textContent = s.streak + '🔥';
+
+      // Checkboxes reflect state
+      ['q1','q2','q3'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.checked = !!s.quests[id];
+      });
+    }
+
+    function popToast(msg){
+      const t = document.createElement('div');
+      t.textContent = msg;
+      t.style.position = 'fixed';
+      t.style.bottom = '24px';
+      t.style.left = '50%';
+      t.style.transform = 'translateX(-50%)';
+      t.style.background = 'linear-gradient(135deg, var(--accent), var(--accent-2))';
+      t.style.color = 'white';
+      t.style.padding = '10px 14px';
+      t.style.borderRadius = '12px';
+      t.style.boxShadow = 'var(--shadow)';
+      t.style.zIndex = 9999;
+      document.body.appendChild(t);
+      setTimeout(()=> t.remove(), 1600);
+    }
+
+    // Theme toggle
+    function applyTheme(theme){
+      if (theme === 'light') document.documentElement.setAttribute('data-theme','light');
+      else document.documentElement.removeAttribute('data-theme');
+    }
+
+    // Events
+    document.addEventListener('DOMContentLoaded', () => {
+      applyTheme(themeStore.get());
+      render();
+
+      document.getElementById('claimDaily').addEventListener('click', dailyBonus);
+      document.querySelectorAll('[data-complete]').forEach(btn => {
+        btn.addEventListener('click', () => completeQuest(btn.dataset.complete, parseInt(btn.dataset.xp,10)));
+      });
+
+      document.querySelectorAll('[data-open]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.dataset.open;
+          document.getElementById(`modal-${id}`).showModal();
+        });
+      });
+
+      document.getElementById('themeBtn').addEventListener('click', () => {
+        const current = themeStore.get() === 'light' ? null : 'light';
+        themeStore.set(current);
+        applyTheme(current);
+      });
+
+      // Keyboard shortcuts
+      document.addEventListener('keydown', (e) => {
+        if (e.key.toLowerCase() === 'l'){ // theme
+          const current = themeStore.get() === 'light' ? null : 'light';
+          themeStore.set(current); applyTheme(current);
+        }
+        if (e.key.toLowerCase() === 'q'){
+          document.getElementById('quests').scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+
+      // Contact form (demo only)
+      document.getElementById('contactForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const fd = new FormData(e.currentTarget);
+        const payload = Object.fromEntries(fd.entries());
+        console.log('Contact form data (demo):', payload);
+        popToast('Message captured locally ✅');
+        e.currentTarget.reset();
+      });
+
+      // Avatar initials from name
+      const brandName = document.querySelector('.brand div:first-child + div')?.previousElementSibling; // not used
+      const title = document.querySelector('.title').firstChild.textContent.trim();
+      const initials = title.split(' ').map(w => w[0]).slice(0,2).join('').toUpperCase();
+      document.getElementById('avatar').textContent = initials || 'P1';
+    });
+  </script>
 </body>
-
 </html>
